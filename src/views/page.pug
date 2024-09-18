@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One-to-One Chat</title>
+</head>
+<body>
+  <h1>Chat</h1>
+
+  <input id="userId" placeholder="Enter your user ID" />
+  <button onclick="registerUser()">Register</button>
+  
+  <br/><br/>
+
+  <input id="receiverId" placeholder="Enter receiver's user ID" />
+  <input id="message" placeholder="Enter your message" />
+  <button onclick="sendMessage()">Send Message</button>
+
+  <br/><br/>
+
+  <div id="chatbox"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io('http://localhost:3000');
+
+    function registerUser() {
+      const userId = document.getElementById('userId').value;
+      socket.emit('register', userId);
+    }
+
+    function sendMessage() {
+      const senderId = document.getElementById('userId').value;
+      const receiverId = document.getElementById('receiverId').value;
+      const message = document.getElementById('message').value;
+
+      socket.emit('private_message', { senderId, receiverId, message });
+    }
+
+    socket.on('private_message', (data) => {
+      const chatbox = document.getElementById('chatbox');
+      const message = `${data.senderId}: ${data.message}`;
+      const messageNode = document.createElement('div');
+      messageNode.textContent = message;
+      chatbox.appendChild(messageNode);
+    });
+
+    socket.on('error_message', (errorMsg) => {
+      alert(errorMsg);
+    });
+  </script>
+</body>
+</html>
