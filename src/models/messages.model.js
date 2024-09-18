@@ -1,16 +1,16 @@
-const { DataTypes } = require("sequelize");
-const { sequelize } = require("../config/postgresql.config")
-const User = require("./user.model")
-const Chat = require("./chat.model")
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/postgresql.config');
+const User = require('./user.model');
+const Chat = require('./chat.model');
 
 const Message = sequelize.define('Message', {
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
     },
     chatId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         references: {
             model: Chat,
             key: 'id',
@@ -18,7 +18,7 @@ const Message = sequelize.define('Message', {
         allowNull: false,
     },
     senderId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         references: {
             model: User,
             key: 'id',
@@ -30,8 +30,8 @@ const Message = sequelize.define('Message', {
         allowNull: false,
     },
 }, {
-    tableName: "messages",
-    timestamps: true,
+    tableName: 'messages',
+    timestamps: false
 });
 
 module.exports = Message;
