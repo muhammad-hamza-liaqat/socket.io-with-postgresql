@@ -4,7 +4,7 @@ To test Socket.io endpoints using Postman, follow these steps:
 
 ## Setup
 
-1. **Open Postman** and enter your Socket.io URL in the "Enter URL" field. This should be your local server address, e.g., `http://localhost:3000`.
+1. **Open Postman** and enter your Socket.io URL in the "Enter URL" field. This should be your local server address, e.g., `http://localhost:{process.env.PORT}`.
 
 2. **Add Event Listener**:
    - In the "Event Listener Name" field at the bottom right, specify the name of the event you want to listen for. Ensure this event name matches the one used in your Socket.io server.
@@ -13,9 +13,9 @@ To test Socket.io endpoints using Postman, follow these steps:
 
 ## Sending a Message
 
-1. **Set the Method to POST** and switch to the **Body** tab in Postman.
+1. **Set the Method to socket.io** and switch to the **message** tab in Postman.
 
-2. **Choose `raw`** and set the type to `JSON`.
+<!-- 2. **Choose `raw`** and set the type to `JSON`. -->
 
 3. **Enter the JSON payload** in the body as shown below:
 
