@@ -8,7 +8,6 @@ const socketRoutes = require("./routes/socket.routes");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api", socketRoutes)
 
 // server
 startServer(app);
