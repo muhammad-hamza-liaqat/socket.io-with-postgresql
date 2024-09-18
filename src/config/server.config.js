@@ -12,8 +12,8 @@ const startServer = async (app) => {
 
         const server = http.createServer(app);
         const io = initializeSocketIo(server);
-        setupSocketHandlers();
-        app.listen(process.env.PORT, () => {
+        setupSocketHandlers(io);
+        server.listen(process.env.PORT, () => {
             console.warn(`server is running at http://localhost:${process.env.PORT}/`)
         })
     } catch (error) {
