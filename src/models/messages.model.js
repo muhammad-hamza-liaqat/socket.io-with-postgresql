@@ -17,16 +17,8 @@ const Message = sequelize.define('Message', {
         },
         allowNull: false,
     },
-    senderId: {
-        type: DataTypes.UUID,
-        references: {
-            model: User,
-            key: 'id',
-        },
-        allowNull: false,
-    },
     content: {
-        type: DataTypes.TEXT,
+        type: DataTypes.JSONB, 
         allowNull: false,
     },
 }, {

@@ -8,25 +8,16 @@ const Chat = sequelize.define('Chat', {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
     },
-    userId1: {
-        type: DataTypes.UUID,
-        references: {
-            model: User,
-            key: 'id',
-        },
+    participants: {
+        type: DataTypes.ARRAY(DataTypes.UUID),
         allowNull: false,
-    },
-    userId2: {
-        type: DataTypes.UUID,
-        references: {
-            model: User,
-            key: 'id',
+        validate: {
+            len: [2, 2],
         },
-        allowNull: false,
     },
 }, {
     tableName: 'chats',
-    timestamps: false
+    timestamps: false,
 });
 
 module.exports = Chat;

@@ -5,18 +5,16 @@ const Message = require("../models/messages.model");
 
 const associationDefined = () => {
 
-    // user, chat
-    User.hasMany(Chat, { foreignKey: 'userId1' });
-    User.hasMany(Chat, { foreignKey: 'userId2' });
 
-    // chat, user
-    Chat.belongsTo(User, { as: 'User1', foreignKey: 'userId1' });
-    Chat.belongsTo(User, { as: 'User2', foreignKey: 'userId2' });
+    User.hasMany(Message, { foreignKey: 'senderId' });
+    Message.belongsTo(User, { foreignKey: 'senderId' });
+
     Chat.hasMany(Message, { foreignKey: 'chatId' });
-
-    // message, chat
     Message.belongsTo(Chat, { foreignKey: 'chatId' });
-    Message.belongsTo(User, { as: 'Sender', foreignKey: 'senderId' });
-}
+
+    User.belongsToMany(Chat, { through: 'UserChats', foreignKey: 'userId' });
+    Chat.belongsToMany(User, { through: 'UserChats', foreignKey: 'chatId' });
+
+};
 
 module.exports = associationDefined;
